@@ -1,5 +1,29 @@
 # Hybrid Audio-Visual Approach for Localizing 3D Active Speakers
-This repository contains supplementary materials for the paper "A Hybrid Audio-Visual Approach for Localizing 3D Active Speakers". The study introduces a method to estimate the 3D Cartesian coordinates of two active speakers by integrating MediaPipe's Pose Estimation and Face Mesh with SALSA-Lite audio positioning using a 4-channel microphone array and a webcam.
+
+This repository contains supplementary materials for the paper **"A Hybrid Audio-Visual Approach for Localizing 3D Active Speakers"**. The study introduces a method to estimate the 3D Cartesian coordinates of two active speakers by integrating MediaPipe's Pose Estimation and Face Mesh with SALSA-Lite audio positioning using a 4-channel microphone array and a webcam.
+
+## Overview
+
+🔹 **Audio Processing**: Uses a neural network with SALSA-Lite features to localize sound sources in azimuth and elevation.  
+🔹 **Visual Processing**: Employs Pose Estimation and Face Mesh from MediaPipe for speaker localization.  
+🔹 **Fusion Strategy**: Combines audio and visual estimations using a stacking-based ensemble learning approach.
+
+## Key Findings
+
+✅ The proposed method significantly reduces tracking loss from 35.58% (audio-only) to 3.36% (audio-visual fusion).  
+✅ **Estimation Error**: 8.91 (audio-only) → 4.61 (visual) → 4.09 (combined audio-visual).  
+✅ The approach enhances tracking accuracy, especially in challenging environments with background noise, speaker motion, and reverberation.
+
+## Future Work
+
+🔹 Improving camera calibration for better real-world coordinate transformation.  
+🔹 Extending the study to multiple simultaneous speakers in complex environments.  
+🔹 Applying transfer learning to enhance SALSA-Lite’s performance for human speaker tracking.
+
+For detailed implementation and datasets, please refer to the files in this repository.
+
+---
+
 # Supplements Overview
 
 This section provides a brief overview of the four supplementary files associated with the research study. Each supplement is explained below with a link to the respective file for further reference.
@@ -69,4 +93,3 @@ This supplement compares the overall performance of the Audio (A), Video (V), an
 - Head rotation and background light intensity affect the accuracy of localization, with significant changes in TLR observed during these conditions.
 
 For more detailed results, please refer to the supplementary files on the [GitHub repository](https://github.com/esfehaniparisa/A-hybrid-audio-visual-approach-for-localizing-3D-active-speakers-/tree/main).
-
