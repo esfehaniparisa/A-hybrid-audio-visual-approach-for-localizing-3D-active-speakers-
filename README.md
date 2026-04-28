@@ -1,6 +1,9 @@
+
 # Hybrid Audio-Visual Approach for Localizing 3D Active Speakers
 
 This repository contains supplementary materials for the paper **"A Hybrid Audio-Visual Approach for Localizing 3D Active Speakers"**. The study introduces a method to estimate the 3D Cartesian coordinates of two active speakers by integrating MediaPipe's Pose Estimation and Face Mesh with SALSA-Lite audio positioning using a 4-channel microphone array and a webcam.
+
+---
 
 ## Overview
 
@@ -8,88 +11,159 @@ This repository contains supplementary materials for the paper **"A Hybrid Audio
 🔹 **Visual Processing**: Employs Pose Estimation and Face Mesh from MediaPipe for speaker localization.  
 🔹 **Fusion Strategy**: Combines audio and visual estimations using a stacking-based ensemble learning approach.
 
+---
+
 ## Key Findings
 
 ✅ The proposed method significantly reduces tracking loss from 35.58% (audio-only) to 3.36% (audio-visual fusion).  
 ✅ **Estimation Error**: 8.91 (audio-only) → 4.61 (visual) → 4.09 (combined audio-visual).  
-✅ The approach enhances tracking accuracy, especially in challenging environments with background noise, speaker motion, and reverberation.
-
-## Future Work
-
-🔹 Improving camera calibration for better real-world coordinate transformation.  
-🔹 Extending the study to multiple simultaneous speakers in complex environments.  
-🔹 Applying transfer learning to enhance SALSA-Lite’s performance for human speaker tracking.
-
-For detailed implementation and datasets, please refer to the files in this repository.
+✅ The approach improves robustness in noisy, reverberant, and dynamic environments.
 
 ---
 
-# Supplements Overview
+## Future Work
 
-This section provides a brief overview of the four supplementary files associated with the research study. Each supplement is explained below with a link to the respective file for further reference.
+🔹 Improving camera calibration for more accurate real-world coordinate transformation.  
+🔹 Extending the framework to multiple simultaneous speakers.  
+🔹 Enhancing audio localization using transfer learning.
 
-## Supplement 1: Literature Review
+---
 
-This supplement presents a comparison of various methods for audio event localization using audio-visual information. The key approaches and the underlying scenarios are summarized in the table below:
+# 📊 Dataset Description
 
-| **Method** | **Scenario** | **Key Features** |
-|------------|--------------|------------------|
-| Audio | Static speakers | Uses audio for localization, often suffers from high track loss in dynamic environments. |
-| Video | Static speakers | Relies on visual information for localization, limited by visibility and lighting. |
-| Audio-Visual (AV) | Dynamic speakers | Combines audio and visual data for improved accuracy, reducing track loss and estimation errors. |
+The dataset used in this work is composed of synchronized multi-modal recordings.
 
-The table provides a high-level comparison of different localization methods and their performance under varying conditions.
+---
 
-## Supplement 2: Calibration Methodology
+## 1. Calibration Dataset (2D → 3D Mapping)
 
-This supplement describes the calibration process used to convert 2D pixel coordinates to real-world coordinates using a neural network. The methodology includes the following key steps:
+- Purpose: Learn mapping from image coordinates to real-world coordinates  
+- Data type: Checkerboard-based spatial samples  
+- Input: 2D pixel coordinates  
+- Output: 3D Cartesian coordinates  
+- Used for: Camera calibration and spatial transformation  
+- Setup: Fixed camera (320 cm distance), grid-based sampling  
 
-1. **Visual Scene Setup**: The scene is set up with a rectangular floor area covered with checkerboard plots. The camera is placed 320 cm away from the floor and aligned with the reference point.
-2. **Dataset Generation**: A dataset is created by placing a 15cm × 15cm square at various points across the scene. The positions of the square are tracked for 3 seconds at each position.
-3. **Neural Network Training**: A neural network is trained using the generated dataset. The network maps pixel coordinates to real-world coordinates. The architecture includes three hidden layers with 300, 32, and 16 neurons, and the network is optimized using the Adam optimizer.
-4. **Model Performance**: The model is trained over 700 epochs, and the Mean Squared Error (MSE) is evaluated for both the training and evaluation sets, showing significant performance with an MSE of 1.50 for the evaluation set.
+---
 
-## Supplement 3: Audio Localization Performance
+## 2. Audio Dataset
 
-This supplement describes the assessment of the audio localization method using the TAU-NIGENS Spatial Sound Events datasets. The following key points are covered:
+- Source: TAU-NIGENS Spatial Sound Events dataset (2020 & 2021)  
+- Device: 4-channel ReSpeaker microphone array  
+- Content:
+  - Single speaker scenarios  
+  - Multi-speaker scenarios  
+  - Moving speakers  
+  - Noisy and reverberant environments  
+- Features: SALSA-Lite-based acoustic representations  
 
-- **Datasets Used**: The TAU-NIGENS Spatial Sound Events 2021 and 2020 datasets are used to train and test the neural network for audio localization.
-- **Recording Setup**: Audio is recorded using the ReSpeaker USB Mic Array, which has four channels. Multiple conditions are considered, including one or two speakers, movement, background noise, and different room environments.
-- **Evaluation Metrics**: The performance of the trained network is evaluated using the Track Loss Rate (TLR) and Average Euclidean Distance (AED) between estimated positions and ground-truth values. The results show a significant improvement in localization accuracy when using audio-visual fusion.
+---
 
-## Supplement 4: Overall Performance Comparison
+## 3. Visual Dataset
 
-This supplement compares the overall performance of the Audio (A), Video (V), and Audio-Visual (AV) localization methods using two main metrics: Track Loss Rate (TLR) and Average Euclidean Distance (AED). The results are summarized in the tables below:
+- Device: Monocular RGB camera  
+- Framework: MediaPipe (Pose Estimation + Face Mesh)  
+- Content:
+  - Facial landmarks  
+  - Body pose keypoints  
+  - Temporal tracking of speakers  
+- Conditions:
+  - Lighting variation  
+  - Occlusion  
+  - Head motion  
 
-### Table 1: Track Loss Rate (TLR) of Audio (A), Video (V), and Audio-Visual (AV) Approaches
+---
 
-| **Duration (Frame No.)** | **100-150** | **151-200** | **201-300** | **400-450** | **451-500** | **501-600** |
-|--------------------------|-------------|-------------|-------------|-------------|-------------|-------------|
-| **Seq1**                 |             |             |             |             |             |             |
-| A S1                     | 11.76       | –           | 9           | 50.98       | –           | 41          |
-| V S1                     | 0           | –           | 36          | 5.88        | –           | 2           |
-| AV                        | 0           | –           | 0           | 0           | –           | 0           |
-| **Seq2**                 |             |             |             |             |             |             |
-| A S1                     | 21          | –           | 40          | 23          | –           | 38          |
-| V S1                     | 7.8         | –           | 18          | 0           | –           | 0           |
-| AV                        | 0           | –           | 2           | 0           | –           | 0           |
+## 4. Audio-Visual Fusion Dataset
 
-### Table 2: Average Euclidean Distance (AED) of Audio (A), Video (V), and Audio-Visual (AV) Approaches
+- Input: Combined audio + visual features  
+- Structure:
+  - Audio localization outputs  
+  - Visual localization outputs  
+  - Ground truth 3D positions  
+- Purpose: Training fusion network for final 3D estimation  
 
-| **Duration (Frame No.)** | **100-150** | **151-200** | **201-300** | **400-450** | **451-500** | **501-600** |
-|--------------------------|-------------|-------------|-------------|-------------|-------------|-------------|
-| **Seq1**                 |             |             |             |             |             |             |
-| A S1                     | 9.2         | –           | 11.1        | 8.86        | –           | 9.01        |
-| V S1                     | 9.53        | –           | 9.05        | 8.58        | –           | 3.14        |
-| AV                        | 2.34        | –           | 4.87        | 7.2         | –           | 3.9         |
-| **Seq2**                 |             |             |             |             |             |             |
-| A S1                     | 8.29        | –           | 10.8        | 8.5         | –           | 9.4         |
-| V S1                     | 2.13        | –           | 2.38        | 3.72        | –           | 2.82        |
-| AV                        | 3.37        | –           | 3.59        | 2.75        | –           | 2.48        |
+---
 
-### Key Findings:
-- The AV method outperforms both the Audio and Video methods, with a significant reduction in Track Loss Rate (TLR) and Average Euclidean Distance (AED).
-- In scenarios where multiple speakers are present, both TLR and AED increase, especially in the audio method.
-- Head rotation and background light intensity affect the accuracy of localization, with significant changes in TLR observed during these conditions.
+## Dataset Availability
 
-For more detailed results, please refer to the supplementary files on the [GitHub repository](https://github.com/esfehaniparisa/A-hybrid-audio-visual-approach-for-localizing-3D-active-speakers-/tree/main).
+A representative subset of the dataset is included in this repository for demonstration purposes.
+
+The full dataset is available via a controlled-access Google Drive link:
+
+👉 [ADD GOOGLE DRIVE LINK HERE]
+
+---
+
+## Supplements Overview
+
+---
+
+### Supplement 1: Literature Review
+
+| Method | Scenario | Key Features |
+|--------|----------|--------------|
+| Audio | Static speakers | High tracking loss in dynamic environments |
+| Video | Static speakers | Sensitive to occlusion and lighting |
+| Audio-Visual | Dynamic speakers | Improved accuracy via multimodal fusion |
+
+---
+
+### Supplement 2: Calibration Methodology
+
+- Checkerboard floor setup  
+- Camera at 320 cm distance  
+- Dataset: 15cm × 15cm marker samples  
+- Neural network: 300 → 32 → 16  
+- Optimizer: Adam  
+- MSE ≈ 1.50  
+
+---
+
+### Supplement 3: Audio Localization Performance
+
+- Dataset: TAU-NIGENS 2020 & 2021  
+- Microphone: 4-channel array  
+- Scenarios: noise, motion, multi-speaker  
+
+Metrics:
+- Track Loss Rate (TLR)  
+- Average Euclidean Distance (AED)  
+
+---
+
+### Supplement 4: Overall Performance Comparison
+
+#### Table 1: Track Loss Rate (TLR)
+
+| Duration | 100–150 | 151–200 | 201–300 | 400–450 | 451–500 | 501–600 |
+|----------|--------|--------|--------|--------|--------|--------|
+| A S1 Seq1 | 11.76 | – | 9 | 50.98 | – | 41 |
+| V S1 Seq1 | 0 | – | 36 | 5.88 | – | 2 |
+| AV Seq1 | 0 | – | 0 | 0 | – | 0 |
+| A S1 Seq2 | 21 | – | 40 | 23 | – | 38 |
+| V S1 Seq2 | 7.8 | – | 18 | 0 | – | 0 |
+| AV Seq2 | 0 | – | 2 | 0 | – | 0 |
+
+---
+
+#### Table 2: Average Euclidean Distance (AED)
+
+| Duration | 100–150 | 151–200 | 201–300 | 400–450 | 451–500 | 501–600 |
+|----------|--------|--------|--------|--------|--------|--------|
+| A S1 Seq1 | 9.2 | – | 11.1 | 8.86 | – | 9.01 |
+| V S1 Seq1 | 9.53 | – | 9.05 | 8.58 | – | 3.14 |
+| AV Seq1 | 2.34 | – | 4.87 | 7.2 | – | 3.9 |
+| A S1 Seq2 | 8.29 | – | 10.8 | 8.5 | – | 9.4 |
+| V S1 Seq2 | 2.13 | – | 2.38 | 3.72 | – | 2.82 |
+| AV Seq2 | 3.37 | – | 3.59 | 2.75 | – | 2.48 |
+
+---
+
+### Key Observations
+
+- Audio-Visual fusion consistently outperforms single modalities.  
+- Multi-speaker scenarios increase difficulty for audio-only systems.  
+- Environmental conditions significantly affect performance.
+
+---
