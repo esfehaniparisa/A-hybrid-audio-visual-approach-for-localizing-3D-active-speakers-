@@ -86,12 +86,16 @@ The dataset used in this work is composed of synchronized multi-modal recordings
 ---
 
 ## Dataset Availability
+  
+To ensure reproducibility, a representative subset of the dataset is publicly available in this repository.
 
-A representative subset of the dataset is included in this repository for demonstration purposes.
+The complete dataset is large-scale and therefore not publicly released at this stage due to storage constraints.
 
-The full dataset is available via a controlled-access Google Drive link:
+A sample of the dataset can be accessed via Google Drive:
 
-👉 [ADD GOOGLE DRIVE LINK HERE]
+👉 [Access Sample Dataset](https://drive.google.com/drive/folders/1AZVfsJjmzGrRGS7pOixtK_MQhVqjC1gH?usp=drive_link)
+
+The full dataset will be shared upon request after publication.
 
 ---
 
