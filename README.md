@@ -1,7 +1,7 @@
 
 # Hybrid Audio-Visual Approach for Localizing 3D Active Speakers
 
-[![DOI](https://zenodo.org/badge/DOI/DOI: 10.5281/zenodo.21813612.svg)](https://doi.org/DOI_NUMBER)
+[![DOI](https://zenodo.org/badge/DOI/DOI: 10.5281/zenodo.21813612.svg)](https://doi.org/DOI: 10.5281/zenodo.21813612)
 
 This repository contains supplementary materials for the paper **"A Hybrid Audio-Visual Approach for Localizing 3D Active Speakers"**. The study introduces a method to estimate the 3D Cartesian coordinates of two active speakers by integrating MediaPipe's Pose Estimation and Face Mesh with SALSA-Lite audio positioning using a 4-channel microphone array and a webcam.
 
