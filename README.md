@@ -12,7 +12,16 @@ This repository contains supplementary materials for the paper **"A Hybrid Audio
 🔹 **Fusion Strategy**: Combines audio and visual estimations using a stacking-based ensemble learning approach.
 
 ---
+### SALSA-Lite Audio Source Localization
 
+The audio localization component used in this work is based on the publicly available SALSA-Lite framework developed by the original authors.
+
+The SALSA-Lite source code was obtained from:
+
+https://github.com/thomeou/SALSA-Lite
+
+The original implementation was installed and integrated into our proposed audio-visual localization pipeline to extract audio localization features and estimate sound source directions.
+---
 ## Key Findings
 
 ✅ The proposed method significantly reduces tracking loss from 35.58% (audio-only) to 3.36% (audio-visual fusion).  
